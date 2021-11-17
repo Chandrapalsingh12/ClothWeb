@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static from static %}
+
+{% block title %}Product-View{% endblock title %}
+
+
+
+{% block body %}
+<div class="container">
+  <div class="image-viewer ">
+    <div class="main-image ">
+      <img src="/media/{{product.image}}" />
+    </div>
+    
+  </div>
+  <div class="detail">
+    <h1 class="detail-name" id="name{{product.id}}">{{product.product_name}}</h1>
+    <p class="detail-short-description">
+     {{product.desc}}
+    </p>
+    <p class="datepro">Publish On 23 Sep</p>
+  </div>
+  <div class="pricing">
+    <div class="pricing-price" id="itemprice{{product.id}}">{{product.price}}</div>
+    <button class="btn pricing-btn cart" id="{{product.id}}">Add to Cart</button>
+  </div>
+
+</div>
+
+{% endblock body %}
+{% block js %}
+<script>
+if (localStorage.getItem('cart') == null){
+var cart = {};
+}
+else{
+  cart = JSON.parse(localStorage.getItem('cart'));
+  document.getElementById('cartsect').innerHTML = Object.keys(cart).length;
+}
+
+$('.cart').click(function(){
+      console.log("Cart Clicked")
+      var idStr = this.id.toString();
+      console.log(idStr)
+      if(cart[idStr] !=undefined){
+        qty = cart[idStr][0] + 1;
+      }
+      else{
+        qty = 1;
+        name = document.getElementById('name'+idStr).innerHTML;
+        price = document.getElementById('itemprice'+idStr).innerHTML;
+        cart[idStr] = [qty, name,price];
+      }
+      console.log(cart)
+      localStorage.setItem('cart', JSON.stringify(cart));
+    });
+</script>
+{% endblock js %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Payment Page</title>
+    <style>
+	.contrainer{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		min-height: 50vw;
+	}
+        .btn-payment{
+    padding: 10px 30px;
+    min-width: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    background: #1402ff;
+    border: none;
+    outline: none;
+    transition: 0.8s ease;
+}
+.btn-payment:hover{
+    background: white;
+    color: black;
+    border: 1px solid #1402ff;
+}
+    </style>
+</head>
+<body>
+	<h1>Please do not Refres Page..............</h1>
+	<div class="contrainer">
+	<h1>Your Order Tracker Id is {{ids}}. You Can use this id to Track Your Order. <br> After Payment!!!</h1>
+	<button class="btn-payment" id="pay-btn">Pay</button>
+</div>
+</body>
+
+<!-- Razorpay's Javascript code. -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+	// newId = document.getElementById('userId').value;
+
+	// localStorage.setItem('Id',newId)
+	var options = {
+	
+	// Enter the Key ID generated from the Dashboard
+	key: "{{ razorpay_merchant_key }}",
+	
+	// Amount is in currency subunits.
+	// Default currency is INR. Hence,
+	// 50000 refers to 50000 paise
+	amount: "{{ razorpay_amount }}",
+	currency: "{{ currency }}",
+	
+	// Your/store name.
+	name: "Cloth Web",
+	
+	// Pass the `id` obtained in the response of Step 1
+	order_id: "{{ razorpay_order_id }}",
+	callback_url: "{{ callback_url }}",
+	};
+	
+	// initialise razorpay with the options.
+	var rzp1 = new Razorpay(options);
+	
+	// add event listener to the payment button.
+	document.getElementById("pay-btn").onclick = function (e) {
+	rzp1.open();
+	e.preventDefault();
+	};
+</script>
+</html>

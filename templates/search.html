@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static from static %}
+{% block title %}Search Page{% endblock title %}
+{% block style %}
+<style>
+.search-product{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}</style>
+{% endblock style %}
+
+
+{% block body %}
+{% for product, range, nSlides in allProds %}
+<section class="products1" id="shirts">
+  <h1 class="productheading">{{product.0.category}}</h1>
+  <div class="search-product">
+     {% for i in product %}
+    <div class="productcard">
+      <img src="/media/{{i.image}}" alt="Product Image">
+      <p class="description"><a href="#">{{i.desc|truncatechars:20}}</a></p>
+      <h4>Price:${{i.price}}</h4>
+      <button><a href="product-view/{{i.id}}">View Product</a></button>
+    </div>
+    {% endfor %}
+</section>
+{% endfor %}
+{% endblock %}

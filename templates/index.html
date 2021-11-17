@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static from static %}
+{% block title %}Home Page{% endblock title %}
+
+{% block body %}
+<section class="mainblock">
+  <div class="allproducts">
+    <h1 class="heading">All Fashion</h1>
+    <div class="allitems">
+      <div class="items"><a href="#shirts"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <p>Lorem</p>
+      </div>
+      <div class="items"><a href="#2"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <p>Lorem</p>
+      </div>
+      <div class="items"><a href="#3"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <p>Lorem</p>
+      </div>
+      <div class="items"><a href="#4"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <p>Lorem</p>
+      </div>
+      <div class="items"><a href="#5"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <p>Lorem</p>
+      </div>
+      <div class="items"><a href="#6"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <p>Lorem</p>
+      </div>
+    </div>
+
+    <div class="offerproduct">
+      <div class="mySlides fade">
+        <img src="{% static 'images/mainimage.jpg' %}" alt="Offer">
+      </div>
+      <div class="mySlides fade">
+        <img src="{% static 'images/background.png' %}" alt="Offer">
+      </div>
+      <div class="mySlides fade">
+        <img src="{% static 'images/image2vector.svg' %}" alt="Offer">
+      </div>
+
+      <div style="text-align:center">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+{% for product, range, nSlides in allProds %}
+<section class="products1" id="shirts">
+  <h1 class="productheading">{{product.0.category}}</h1>
+  <div class="productitems slick-slider">
+     {% for i in product %}
+    <div class="productcard">
+      <img src="/media/{{i.image}}" alt="Product Image">
+      <p class="description" id="name{{i.id}}"><b>{{i.product_name }}</b></p>
+      <p class="description"><a href="#">{{i.desc|truncatechars:20}}</a></p>
+      <h4>Price:<span id="itemprice{{i.id}}">{{i.price}}</span></h4>
+      <button><a href="product-view/{{i.id}}">View Product</a></button>
+      <button class="cart add-to-cart-btn" id="{{i.id}}">Add to Cart</button>
+    </div>
+    {% endfor %}
+</section>
+{% endfor %}
+
+
+
+{% endblock body %}
+{% block js %}
+
+     {% endblock js %}

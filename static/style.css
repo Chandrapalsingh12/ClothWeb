@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    outline: none;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+/* Logo */
+
+.topimage {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.topimage img {
+    height: 5vh;
+}
+
+.topimage span {
+    padding-left: 10px;
+    font-size: 25px;
+}
+
+/* NavBr */
+
+nav {
+    background-color: #d4c7e1;
+    height: 8vh;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 18px 40px;
+}
+
+nav ul li a {
+    font-size: 23px;
+    color: #070707;
+}
+
+.inputitems {
+    height: 30px;
+    width: 30vw;
+    border-radius: 30px;
+    padding: 0px 10px;
+    border: 2px solid #5d5168;
+    outline: none;
+}
+
+.inputitems input[type=text] {
+    color: black;
+    border: none;
+}
+
+#search-icon button {
+    background-color: #ffffff;
+    position: absolute;
+    top: 63px;
+    font-size: 20px;
+    left: 54.6%;
+    cursor: pointer;   
+}
+
+.userauth button {
+    height: 34px;
+    width: 73px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* LoginPge */
+
+.loginpage {
+    top: 53%;
+    left: 50%;
+    height: 80vh;
+    width: 52%;
+    background-color: #f5f5f5;
+    transform: translate(-50%, -50%) scale(0);
+    display: none;
+    position: absolute;
+    z-index: 100;
+    transition: all 0.3s linear;
+}
+.loginpage .active {
+    transition: 4s;
+    transform: translate(-50%, -50%) scale(1);
+    display: block;
+}
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+form h1 {
+    padding: 50px;
+}
+
+form .inputlogin{
+    height: 50px;
+    width: 400px;
+    margin-bottom: 35px;
+    padding: 26px;
+    border-bottom: 2px solid black;
+}
+form span{
+    position: relative;
+    top: 20vh;
+}
+
+form .btn-login {
+    background-color: #1b2ab8;
+    height: 50px;
+    width: 232px;
+    cursor: pointer;
+    font-size: 27px;
+}
+
+form .btn-close{
+    margin-left: 97%;
+}
+
+/* ---------------------------------- Index.html Page Css----------------------------------------- */
+
+.maincontainer {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    background-color: #fdfdfd;
+    margin-top: 5vh;
+}
+
+.newitems {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    max-width: 1285px;
+}
+
+.imgclass {
+    border: 2px solid white;
+}
+
+.imgclass img {
+    height: 25vh;
+    width: 20vw;
+}
+
+.product-image {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 0.5rem;
+}
+
+.product-card {
+    width: 380px;
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    margin: 50px auto;
+    background: #fafafa;
+}
+
+.badge {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 10px;
+}
+
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    padding: 50px;
+    background: #f0f0f0;
+}
+
+.product-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 30px;
+}
+
+.product-catagory {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 18px;
+}
+
+.product-details h4 a {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.product-details h4 a:hover {
+    color: #fbb72c;
+}
+
+.product-details p {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 18px;
+    color: #999;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.product-bottom-details div {
+    float: left;
+    width: 50%;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #fbb72c;
+    font-weight: 600;
+}
+
+.product-price small {
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.product-links {
+    text-align: right;
+}
+
+.product-links a {
+    display: inline-block;
+    margin-left: 5px;
+    color: #e1e1e1;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.product-links a:hover {
+    color: #fbb72c;
+}
+
+/* ----------------------------------End  Index.html Page Css----------------------------------------- */

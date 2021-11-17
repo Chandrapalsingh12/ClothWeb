@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static from static %}
+{% block title %}Tracker Page{% endblock title %}
+
+{% block body %}
+<div class="checkout-container" id="clrcart">
+    <div class="step1">
+        <form class="checkout-form" action="#" method="POST" id="trackForm">
+            <input type="hidden" name="" id="">
+            <div class="user-checkname">
+                <span class="innertext-check">Order Id</span>
+                <input type="text" name="orderId" id="orderId" class="check-inneruser" required />
+            </div>
+            <div class="user-checkname">
+                <span class="innertext-check">Email</span>
+                <input type="email" name="emails" id="emails" class="check-inneruser" required />
+            </div>
+            <input type="submit" class="check-submit" value="See Order Status">
+        </form>
+    </div>
+    <div class="step1">
+        <h1> Your Order Status</h1>
+        <div class="checkout-poduct-name" id="checkout-items">
+            <!-- <span class="p-name">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum in dolore veritatis aliquam omnis ratione.</p>
+            </span> -->
+
+        </div>
+        <div class="checkout-product-total">
+            <!-- <span class="p-totalprice">Total Price: 550</span> -->
+        </div>
+    </div>
+
+</div>
+{% endblock body %}
+{% block js %}
+<script>
+    $('#trackForm').submit(function (event) {
+        $('#items').empty();
+
+        var formData = {
+            'orderId': $('input[name=orderId]').val(),
+            'email': $('input[name=emails]').val(),
+            'csrfmiddlewaretoken': $('input[name=CsrfViewMiddleware]').val()
+        }
+        $.ajax({
+            type: "POST",
+            url: '/tracker/',
+            data: formData,
+            encode: true
+        })
+            .done(function (data) {
+                updates = JSON.parse(data);
+                if (updates.length > 0 & updates != {}) {
+                    for (i = 0; i < updates.length; i++) {
+                        let text = updates[i]['text'];
+                        let time = updates[i]['time'];
+                        mystr = `<span class="p-name">${text}<p class="prc">${time}</p></span>`
+                        $('#checkout-items').append(mystr);
+                    }
+                }else{
+                    mystr = `<span class="p-name">Sorry! Please Enter Correct OrderId and Email</span>`
+                    $('#checkout-items').append(mystr);
+                }
+
+            });
+        event.preventDefault();
+    })
+
+
+
+</script>
+{% endblock js %}

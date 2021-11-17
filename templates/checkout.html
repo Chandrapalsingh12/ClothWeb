@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static from static %}
+{% block title %}Checkout Page{% endblock title %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<div class="checkout-container" id="clrcart">
+    <div class="cart-clear">
+    <form>    
+        <button class="btn-cart" id="clrcart"><i class="fa fa-shopping-cart"> Clear Cart</i></button>
+        </form>
+    </div>
+    <div class="step1">
+        <h1>Step1:- Check Your Items</h1>
+        <div class="checkout-poduct-name" id="checkout-items">
+
+        </div>
+        <div class="checkout-product-total">
+            <span class="p-totalprice">Total Price: ₹<span id="total-price"></span> </span> 
+        </div>
+    </div>
+    <div class="step2">
+        <h1>Setp2:- Fill all Datails</h1>
+        <div class="checkout-details">
+            <h2>Fill All DETAILS BELOW</h2>
+            <form class="checkout-form" action="/cheackout/" method="POST">
+                <input type="hidden" name="itemjson" id="itemjson">
+                <input type="hidden" name="amount" id="amount">
+
+                <div class="user-checkname">
+                    <span class="innertext-check">Enter Name</span>
+                    <input type="text" name="name" class="check-inneruser" id="name-s" required/>
+                </div>
+                <div class="user-checkname">
+                    <span class="innertext-check">Enter Email</span>
+                    <input type="email" name="email" class="check-inneruser" id="email-s" required/>
+                </div>
+                <div class="user-checkname">
+                    <span class="innertext-check">Address 1</span>
+                    <input type="text" name="address1" class="check-inneruser" id="user-s" required/>
+                </div>
+                <div class="user-checkname">
+                    <span class="innertext-check">Address 2</span>
+                    <input type="text" name="address2" class="check-inneruser"id="u1" required/>
+                </div>
+                <div class="user-checkname">
+                    <span class="innertext-check">City</span>
+                    <input type="text" name="city" class="check-inneruser" id="u2" required/>
+                </div>
+                <div class="user-checkname">
+                    <span class="innertext-check">Pincode</span>
+                    <input type="number" name="pincode" class="check-inneruser" id="u3" required/>
+                </div>
+                <div class="user-checkname">
+                    <span class="innertext-check">State</span>
+                    <input type="text" name="state" class="check-inneruser" id="u4" required/>
+                </div>
+
+                <div class="user-checkname">
+                    <span class="innertext-check">Enter Phone</span>
+                    <input type="number" name="pnumber" id="u5" class="check-inneruser">
+                </div>
+
+                <input type="submit" class="check-submit" id="submit-deatails" value="Submit Details">
+        </div>
+
+
+        </form>
+    </div>
+</div>
+
+</div>
+{% else %}
+<h2><a href="/">Please Loged in</a></h2>
+{% endif %}
+
+{% endblock body %}
+{% block js %}
+<script>
+var submitDeatails = document.getElementById('submit-deatails')
+var totalprice = 0;
+
+    $('#itemjson').val(JSON.stringify(cart));    
+    {% if thanks %}
+    alert("Thanks For ordering us {{id}}");
+    window.location.href="/";
+    localStorage.clear();
+    {% endif %}
+
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+    }
+if ($.isEmptyObject(cart)){
+    mystr = `<h2>Your Cart Is Empty Please Add Sum Items To the Cart</h2>`
+        $('#checkout-items').append(mystr);
+    submitDeatails.disabled=true;
+
+}
+else{
+    submitDeatails.disabled=false;
+
+    for(item in cart){
+        let name = cart[item][1];
+        let price = cart[item][2];
+        let qty = cart[item][0];
+        totalprice = totalprice + qty*price;
+        mystr = `<span class="p-name">${name}
+                <p class="prc">Price: ₹${price}</p>
+            </span>`
+        $('#checkout-items').append(mystr);
+    }
+}
+document.getElementById('total-price').innerHTML = totalprice;
+document.querySelector("#clrcart").addEventListener('click',()=>{
+    localStorage.clear('cart');
+});
+
+$('#amount').val($('#total-price').html())
+</script>
+{% endblock js %}

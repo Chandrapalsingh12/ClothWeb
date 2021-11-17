@@ -1,0 +1,163 @@
+{% load static from static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/e084ef61e2.js" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script type="text/javascript" src="{% static 'js/jQuery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
+    {% block style %}{% endblock style %}
+
+</head>
+
+<body>
+    <header>
+        <div class="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- Responsive search bar -->
+    <div class="responsive-container">
+      
+        <div class="responsive-searchbar">
+          <form class="search-1" action="/product-search/" method="get">
+            <input type="text" name="search" id="search" class="search-2">
+            <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+          </form>
+          <div class="cartes-responsive"><a href="/cheackout"><i class="fa fa-shopping-cart"><span id="cartsectresponsive">0</span></i></a></div>
+        </div>
+        
+        <div class="cartsection">
+          <a href="#"><i class="fa fa-shopping-cart"></i></a>
+        </div>
+      </div>
+        <!-- End Responsive search bar -->
+        <nav class="nav-bar h-nav">
+            <div class="reslogo logotoggle">
+                <a href="#"><img src="{% static 'images/logo.png' %}" alt="Logo Image"></a>
+            </div>
+            <div class="left-nav v-cls">
+                <div class="logo">
+                    <a href="#"><img src="{% static 'images/logo.png' %}" alt="Logo Image" ></a> 
+                </div>
+                <li class="items"><a href="/">Home</a></li>
+                <li class="items"><a href="#">Catogeroy</a></li>
+                <li class="items"><a href="/tracker">Track</a></li>
+                <li class="items"><a href="#">Contact Us</a></li>
+            </div>
+            <!-- <div class="middle-nav"> -->
+                <form class="middle-nav" action="/product-search/" method="get">
+                <input type="text" name="search" id="search" class="input-text">
+                <button id="btn-serach" class="inputbox-btn" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            <!-- </div> -->
+            {% if user.is_authenticated %}
+            <div class="right-nav v-cls">
+                <h3 id="usernames">{{user.username}}</h3>
+                <div class="cartes"><a href="/cheackout"><i class="fa fa-shopping-cart"><span id="cartsect">0</span></i></a></div>
+                <button class="btn-auth"> <a href="/logout">LogOut</a></button>
+            </div>
+            {% else %}
+            <div class="right-nav v-cls">
+                <button id="btn-login" class="btn-auth">Log In</button>
+                <button id="btn-signup" class="btn-auth">Join Us</button>
+            </div>
+            {% endif %}
+
+
+        </nav>
+    </header>
+    <!-- LoginPage -->
+    <div class="login-page logintoggle">
+        <span class="clos-btn" id="close-btn">&times;</span>
+        <form class="form" action="/login/" method="post">
+            <h1>Login Page</h1>
+            <div class="login-class">
+                <span class="inputvalue">Username:</span>
+                <input type="text" class="inner-txt" name="username" id="">
+            </div>
+            <div class="login-class">
+                <span class="inputvalue">Password:</span>
+                <input type="password" class="inner-txt" name="password" id="">
+            </div>
+            <div class="login-submit">
+                <button class="btn-submit">Login</button>
+            </div>
+        </form>
+    </div>
+    <!-- Signup Page -->
+    <div class="login-page signuptoggle">
+        <span class="clos-btn-signup" id="close-btn">&times;</span>
+        <form class="form signup-form" action="/signup/" method="post">{% csrf_token %}
+            <h1>Signup Page</h1>
+            <div class="login-class">
+                <span class="inputvalue">Username:</span>
+                <input type="text" class="inner-txt" name="username" id="" required />
+            </div>
+            <div class="login-class">
+                <span class="inputvalue">Email:</span>
+                <input type="email" class="inner-txt" name="email" id="" required />
+            </div>
+            <div class="login-class">
+                <span class="inputvalue">Password:</span>
+                <input type="password" class="inner-txt" name="password" id="" required />
+            </div>
+            <div class="login-class">
+                <span class="inputvalue">Conform:</span>
+                <input type="password" class="inner-txt" name="conform" id="" required />
+            </div>
+            <div class="signup-submit">
+                <input type="submit" class="btn-submit">
+            </div>
+            <!-- <button class="btn-submit">Signup</button> -->
+    </div>
+    </form>
+    </div>
+
+    <div class="background-blur"></div>
+
+    {% for message in messages %}
+
+    <div class="messagecls" id="messagedisapper">
+        <div class="message-cls success">
+            <h3> {{message}}</h3>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% block body %}
+    {% endblock %}
+
+    
+
+    <footer>
+        <div class="socialicons">
+            <a href="#">Insta</a>
+            <a href="#">Fb</a>
+            <a href="#">Twi</a>
+            <a href="#">any</a>
+        </div>
+        <h2 class="footertext">Copyright By &copy; Lucifer </h2>
+
+    </footer>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/authenticater.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+     {% block js %}
+     {% endblock js %}
+ 
+</body>
+
+</html>
